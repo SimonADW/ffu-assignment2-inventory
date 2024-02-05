@@ -1,0 +1,97 @@
+.grid {
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	gap: var(--spacing-xsmall);
+}
+
+.column--1 {
+	grid-column-end: span 1;
+}
+
+.column--2 {
+    grid-column-end: span 2;
+}
+
+.column--3 {
+    grid-column-end: span 3;
+}
+
+.column--4 {
+    grid-column-end: span 4;
+}
+
+.column--5 {
+    grid-column-end: span 5;
+}
+
+.column--6 {
+    grid-column-end: span 6;
+}
+
+.column--7 {
+    grid-column-end: span 7;
+}
+
+.column--8 {
+    grid-column-end: span 8;
+}
+
+.column--9 {
+    grid-column-end: span 9;
+}
+
+.column-10 {
+    grid-column-end: span 10;
+}
+
+.column-11 {
+    grid-column-end: span 11;
+}
+
+.column-12 {
+    grid-column-end: span 12;
+}
+
+.offset--1 {
+    grid-column-start: 2;
+}
+
+.offset--2 {
+    grid-column-start: 3;
+}
+
+.offset--3 {
+    grid-column-start: 4;
+}
+
+.offset--4 {
+    grid-column-start: 5;
+}
+
+.offset--5 {
+    grid-column-start: 6;
+}
+
+.offset--6 {
+    grid-column-start: 7;
+}
+
+.offset--7 {
+    grid-column-start: 8;
+}
+
+.offset--8 {
+    grid-column-start: 9;
+}
+
+.offset--9 {
+    grid-column-start: 10;
+}
+
+.offset--10 {
+    grid-column-start: 11;
+}
+
+.offset--11 {
+    grid-column-start: 12;
+}

@@ -1,0 +1,22 @@
+:root {
+	--color-primary: #F1F7ED;
+	--color-secondary: #7CA982;
+	--color-tercary: #C2A83E;
+
+	--color-normal: #243E36;
+	--color-hover: #7B897D;
+	--color-active: #49624D;
+	
+	--color-border: #243E36;
+
+	--font-size-base: 16px;
+	--font-size-medium: 1.25rem;
+	--font-size-large: 1.5rem;
+	--font-size-large: 1.75rem;
+	--font-size-xlarge: 2.25rem;
+	
+	--spacing-xsmall: 1.25rem;
+	--spacing-small: 2rem;
+	--spacing-medium: 3rem;
+
+}

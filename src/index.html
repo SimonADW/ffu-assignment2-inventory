@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Inventory management</title>
+
+	<link rel="stylesheet" href="css/grid.css">
+	<link rel="stylesheet" href="css/fonts.css">
+	<link rel="stylesheet" href="css/variables.css">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css">
+
+	<script src="https://kit.fontawesome.com/04179606a2.js" crossorigin="anonymous"></script>
+	<script src="js/app.js" type="module"></script>
+</head>
+<body>
+	<section>
+		<div class="hero">
+			<img src="assets/images/national-cancer-institute.jpeg" alt="vintage-pharmacy-inventory">
+			<img src="assets/images/national-cancer-institute.jpeg" alt="vintage-pharmacy-inventory">
+		</div>
+		<h1>Pharmacy Inventory Management</h1>
+	</section>
+
+	<section class="add-and-search">
+		<div class="edit-page">
+			<header>
+				<h2>Enter Product Details</h2>
+				<button>
+					<svg xmlns="http://www.w3.org/2000/svg" width="41" height="42" viewBox="0 0 41 42" fill="none">
+						<path d="M4.4 41.125L0.375 37.1L16.475 21L0.375 4.9L4.4 0.875L20.5 16.975L36.6 0.875L40.625 4.9L24.525 21L40.625 37.1L36.6 41.125L20.5 25.025L4.4 41.125Z" fill="black"/>
+					</svg>
+				</button>
+			</header>
+	
+			<form action="" class="grid">
+				<label for="name" class="offset--1 column--2">Product name:</label>
+				<input type="text" name="name" class="name column--4" required>
+				<div class="name-error error-message column--5	">* Please enter a name</div>
+				
+				<label for="manufacturer" class="offset--1 column--2">Manufacturer:</label>
+				<input type="text" name="manufacturer" class="manufacturer column--4" required>
+				<div class="manufacturer-error error-message column--5	">* Please enter a name</div>
+				
+				<label for="id" class="offset--1 column--2">Product id:</label>
+				<input type="text" name="id" class="id column--2" required>
+				<div class="id-error error-message column--5	">* Please enter a unique ID</div>
+				
+				<label for="expiration" class="offset--1 column--2">Expiration date:</label>
+				<input type="text" name="expiration" class="expiration column--2" required>
+				<div class="expiration-error error-message column--5	">* Please enter a valid date format (YYYY-MM-DD):</div>
+				
+				<label for="stock" class="offset--1 column--2">Qty in stock:</label>
+				<input type="text" name="stock" class="stock column--2" required>
+				<div class="stock-error error-message column--5	">* Please enter a number</div>
+	
+				<button class="save-button offset--7 column--2">Save</button>
+				<button class="cancel-button offset--9 column--2">Cancel</button>
+			</form>
+		</div>
+
+		<button class="add-and-search__addItem">Add Item</button>
+		<div class="add-and-search__search-field">
+			<label for="search">Search:</label>
+			<input type="text" id="search">
+		</div>
+	</section>
+
+	<section class="list">
+
+		<div class="list__header grid">
+			<span class="column--1">Qty</span>
+			<span class="column--3">Name</span>
+			<span class="column--2">ID</span>
+			<span class="column--2">Manufacturer</span>
+			<span class="column--2">Expiration</span>
+			<span class="column--2">Actions</span>
+		</div>
+
+		<div class="list__item grid">
+			<span class="list__item__content column--1 qty">7</span>
+			<span class="list__item__content column--3 name">Pracetamol</span>
+			<span class="list__item__content column--2 id">33315</span>
+			<span class="list__item__content column--2 manufacturer">Pfizer</span>
+			<span class="list__item__content column--1 expiration">20240415</span>
+			<span class="list__item__content column--3 actions">
+				<button class="list__item__content__edit">Edit</button>
+				<button class="list__item__content__delete">Delete</button>
+				<button class="chevron"><i class="fa-solid fa-chevron-down"></i></button>
+			</span>
+			<!-- <img src="assets/images/roberto-sorin-pills1.jpeg" alt="list__item__image"> -->
+		</div>
+	</section>
+
+	<footer>2024 © Simon Winter</footer>
+
+	
+</body>
+</html>
