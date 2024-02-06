@@ -1,3 +1,7 @@
+import { Medicine } from "./medicine.js";
+
+
+const allProducts = [];
 
 
 //BUTTONS
@@ -31,3 +35,16 @@ closeOverlayButton.addEventListener("click", ()=> {
 	listContainer.style.display = "flex";
 });
 
+saveButton.addEventListener("click", (event)=> {
+	event.preventDefault();
+	const newMedicine = new Medicine(nameInput.value, manufacturerInput.value, idInput.value, expirationInput.value, stockInput.value);
+	Medicine.addMedicine(newMedicine);
+	console.log(window.localStorage.allProducts);
+})
+
+
+
+
+
+// EXPORTS
+export default allProducts;

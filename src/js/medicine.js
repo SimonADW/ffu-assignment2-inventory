@@ -1,3 +1,5 @@
+import allProducts from "./app.js"
+
 export class Medicine {
 	constructor(name, manufacturer, id, expiration, qty){
 		this.name = name
@@ -7,5 +9,12 @@ export class Medicine {
 		this.qty = qty
 	}
 
-	
+	static addMedicine(medicine){
+		allProducts.push(medicine);
+		window.localStorage.setItem("allProducts", JSON.stringify(allProducts));
+		
+	}
 }
+
+
+
