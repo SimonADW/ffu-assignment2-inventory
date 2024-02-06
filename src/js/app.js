@@ -8,11 +8,12 @@ const allProducts = [];
 const addItemButton = document.querySelector(".add-and-search__addItem");
 const closeOverlayButton = document.querySelector(".close-overlay-button");
 const saveButton = document.querySelector(".save-button");
-const cancleButton = document.querySelector(".cancel-button");
+const cancelButton = document.querySelector(".cancel-button");
 
 // CONTAINERS
 const editPage = document.querySelector(".edit-page");
 const listContainer = document.querySelector(".list");
+const myForm = document.querySelector("form");
 
 // INPUTS
 const nameInput = document.querySelector(".name");
@@ -31,23 +32,29 @@ const validateForm = ()=> {
 	if (nameInput.value === "") {
 		document.querySelector(".name-error").style.display = "block";
 		nameInput.focus()
+		return false
 	}	
 	if (manufacturerInput.value === "") {
 		document.querySelector(".manufacturer-error").style.display = "block";
 		manufacturerInput.focus();
+		return false
 	}	
 	if (idInput.value === "") {
 		document.querySelector(".id-error").style.display = "block";
 		idInput.focus();
+		return false
 	}	
 	if (expirationInput.value === "" || !iso8601Regex.test(expirationInput.value)) {
 		document.querySelector(".expiration-error").style.display = "block";
 		expirationInput.focus();
+		return false
 	}	
 	if (stockInput.value === "") {
 		document.querySelector(".stock-error").style.display = "block";
 		stockInput.focus();
-	}			
+		return false
+	}		
+	return true;	
 };
 
 nameInput.addEventListener("keydown", ()=> {
@@ -66,26 +73,34 @@ stockInput.addEventListener("keydown", ()=> {
 	document.querySelector(".stock-error").style.display = "none";
 })
 
+const closeEditPage = ()=> {
+	myForm.reset();
+	editPage.style.display = "none";
+	listContainer.style.display = "flex";
+}
 
 
 // EVENT LISTENERS
 addItemButton.addEventListener("click", ()=> {
 	editPage.style.display = "block";
 	listContainer.style.display = "none"
+	nameInput.focus()
 });
 
-closeOverlayButton.addEventListener("click", ()=> {
-	editPage.style.display = "none";
-	listContainer.style.display = "flex";
-});
+closeOverlayButton.addEventListener("click", closeEditPage);
+cancelButton.addEventListener("click", closeEditPage);
+
 
 // SAVE NEW MEDICINE
 saveButton.addEventListener("click", (event)=> {
 	event.preventDefault();
-	validateForm();
-	const newMedicine = new Medicine(nameInput.value, manufacturerInput.value, idInput.value, expirationInput.value, stockInput.value);
-	Medicine.addMedicine(newMedicine);
-	console.log(window.localStorage.allProducts);
+	if (validateForm()) {
+		const newMedicine = new Medicine(nameInput.value, manufacturerInput.value, idInput.value, expirationInput.value, stockInput.value);
+		Medicine.addMedicine(newMedicine);
+		console.log(window.localStorage.allProducts);
+		// @TODO Some confirmation here
+		closeEditPage();
+	}
 })
 
 
