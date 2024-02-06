@@ -133,6 +133,10 @@ label {
 	text-wrap: nowrap;
 }
 
+.form-explanation {
+	font-size: 10px;
+}
+
 .error-message {
 	text-wrap: nowrap;
 	font-size: 12px;
