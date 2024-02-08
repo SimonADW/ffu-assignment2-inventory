@@ -82,6 +82,7 @@ button:active {
 
 .list__item__content {
 	text-wrap: nowrap;
+	overflow: hidden;
 }
 
 .list__item__content button {
@@ -157,6 +158,25 @@ form button {
 	grid-row-start: 7;	
 }
 
+/* SAVED CONFIRMATION MESSAGE */
+.save-confirmation {
+	width: 20rem;
+	height: 5rem;
+	
+	position: absolute;
+	top: 600%;
+	left: 50%;
+	transform: translateX(-50%);
+
+	display: none;
+	align-items: center;
+	justify-content: center;
+
+	color: var(--color-primary);
+	box-shadow: 2px 2px 5px grey ;
+	background: var(--color-secondary);
+
+}
 
 
 /* FOOTER  -------------- */

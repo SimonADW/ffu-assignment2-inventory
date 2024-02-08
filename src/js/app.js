@@ -14,6 +14,7 @@ const cancelButton = document.querySelector(".cancel-button");
 const editPage = document.querySelector(".edit-page");
 export const listContainer = document.querySelector(".list");
 const myForm = document.querySelector("form");
+const confirmSaveContainer = document.querySelector(".save-confirmation");
 
 // INPUTS
 const nameInput = document.querySelector(".name");
@@ -91,6 +92,15 @@ addItemButton.addEventListener("click", ()=> {
 closeOverlayButton.addEventListener("click", closeEditPage);
 cancelButton.addEventListener("click", closeEditPage);
 
+// DISPLAY SAVE CONFIRMATION MESSAGE
+const displaySaveConfirmation = (medicineName)=> {
+	confirmSaveContainer.textContent = `${medicineName} added to inventory ✔︎`
+	confirmSaveContainer.style.display = "flex";		
+	setTimeout(()=>{
+		confirmSaveContainer.style.display = "none";		
+	}, 3000)
+}
+
 
 // SAVE NEW MEDICINE
 saveButton.addEventListener("click", (event)=> {
@@ -105,7 +115,7 @@ saveButton.addEventListener("click", (event)=> {
 			Medicine.addMedicine(newMedicine);
 			console.log(window.localStorage.allProducts);
 		}
-		// @TODO Some confirmation here
+		displaySaveConfirmation(nameInput.value);
 		closeEditPage();
 		renderList(getMedicineFromLocaleStorage());
 	}
