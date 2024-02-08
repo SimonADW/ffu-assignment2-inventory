@@ -1,5 +1,5 @@
 import { Medicine, PrescriptionMedicine } from "./medicine.js";
-
+import {renderList} from "./renderList.js"
 
 const allProducts = [];
 
@@ -12,7 +12,7 @@ const cancelButton = document.querySelector(".cancel-button");
 
 // CONTAINERS
 const editPage = document.querySelector(".edit-page");
-const listContainer = document.querySelector(".list");
+export const listContainer = document.querySelector(".list");
 const myForm = document.querySelector("form");
 
 // INPUTS
@@ -107,10 +107,21 @@ saveButton.addEventListener("click", (event)=> {
 		}
 		// @TODO Some confirmation here
 		closeEditPage();
+		renderList(getMedicineFromLocaleStorage());
 	}
 })
 
+// GET ALL MEDICINES ARRAY
+const getMedicineFromLocaleStorage = ()=> {
+	const medicineArrayJSON = window.localStorage.getItem("allProducts", allProducts);
+	const convertedMedicineArray = JSON.parse(medicineArrayJSON)
+	console.log(convertedMedicineArray);
+	return convertedMedicineArray;
+}
 
+// DEFAULT LIST CONTENT
+
+renderList(getMedicineFromLocaleStorage());
 
 // EXPORTS
 export default allProducts;

@@ -63,10 +63,10 @@ button:active {
 	flex: 1 0 auto;
 }
 
-.list__header {
+.list__header__item {
 	width: 100%;
-	margin-bottom: 1rem;
-	padding: 0 var(--spacing-xsmall);
+	
+	padding: 4px var(--spacing-xsmall);
 	font-weight: 600;
 	color: var(--color-primary);
 	background: var(--color-normal);
@@ -76,6 +76,7 @@ button:active {
 	width: 100%;
 	padding: 0 var(--spacing-xsmall);
 	height: var(--spacing-small);
+	margin-bottom: 4px;
 	background: var(--color-primary);	
 }
 
@@ -89,6 +90,8 @@ button:active {
 
 .actions {
 	margin: 0 auto;	
+	display: flex;
+	gap: 4px;
 }
 
 .actions .chevron {	
