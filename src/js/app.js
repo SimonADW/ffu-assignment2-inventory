@@ -1,4 +1,4 @@
-import { Medicine } from "./medicine.js";
+import { Medicine, PrescriptionMedicine } from "./medicine.js";
 
 
 const allProducts = [];
@@ -21,6 +21,7 @@ const manufacturerInput = document.querySelector(".manufacturer");
 const idInput = document.querySelector(".id");
 const expirationInput = document.querySelector(".expiration");
 const stockInput = document.querySelector(".stock");
+const prescriptionInput = document.querySelector(".prescription");
 
 const searchInput = document.querySelector(".search");
 
@@ -95,9 +96,15 @@ cancelButton.addEventListener("click", closeEditPage);
 saveButton.addEventListener("click", (event)=> {
 	event.preventDefault();
 	if (validateForm()) {
-		const newMedicine = new Medicine(nameInput.value, manufacturerInput.value, idInput.value, expirationInput.value, stockInput.value);
-		Medicine.addMedicine(newMedicine);
-		console.log(window.localStorage.allProducts);
+		if (prescriptionInput.checked) {
+			const newMedicine = new PrescriptionMedicine(nameInput.value, manufacturerInput.value, idInput.value, expirationInput.value, stockInput.value, true);
+			Medicine.addMedicine(newMedicine);
+			console.log(window.localStorage.allProducts);
+		} else {
+			const newMedicine = new Medicine(nameInput.value, manufacturerInput.value, idInput.value, expirationInput.value, stockInput.value);
+			Medicine.addMedicine(newMedicine);
+			console.log(window.localStorage.allProducts);
+		}
 		// @TODO Some confirmation here
 		closeEditPage();
 	}

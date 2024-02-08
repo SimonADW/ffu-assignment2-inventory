@@ -16,5 +16,12 @@ export class Medicine {
 	}
 }
 
+export class PrescriptionMedicine extends Medicine {
+	constructor(name, manufacturer, id, expiration, qty, prescription) {
+		super(name, manufacturer, id, expiration, qty)
+		this.prescription = prescription
+	}
+}
+
 
 

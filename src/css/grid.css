@@ -95,3 +95,7 @@
 .offset--11 {
     grid-column-start: 12;
 }
+
+.row-start--6 {
+    grid-row-start: 6;
+}

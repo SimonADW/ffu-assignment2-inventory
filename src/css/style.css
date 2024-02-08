@@ -144,8 +144,14 @@ label {
 	display: none;
 }
 
+.prescription {
+	margin-right: auto;
+	height: 100%;
+
+}
+
 form button {
-	grid-row-start: 6;	
+	grid-row-start: 7;	
 }
 
 
