@@ -1,7 +1,8 @@
 import { Medicine, PrescriptionMedicine } from "./medicine.js";
 import {renderList} from "./renderList.js"
 
-const allProducts = [];
+export const allProducts = getMedicineFromLocaleStorage();
+
 
 
 // BUTTONS
@@ -9,6 +10,7 @@ const addItemButton = document.querySelector(".add-and-search__addItem");
 const closeOverlayButton = document.querySelector(".close-overlay-button");
 const saveButton = document.querySelector(".save-button");
 const cancelButton = document.querySelector(".cancel-button");
+const generateIDButton = document.querySelector(".generateID");
 
 // CONTAINERS
 const editPage = document.querySelector(".edit-page");
@@ -26,6 +28,27 @@ const prescriptionInput = document.querySelector(".prescription");
 
 const searchInput = document.querySelector(".search");
 
+// UNIQUE ID 
+const generateAndDisplayID = ()=> {
+	const currentID = Date.now()
+	idInput.value = currentID;	
+}
+
+//@TODO FIX UNIQUE CHECK
+const checkIDIsUnique = (currentId) => {
+    for (const product of allProducts) {
+        if (currentId === product.id) {
+            return false; // If currentId is found in any product's ID, it's not unique
+        }
+    }
+    return true; // If currentId is not found in any product's ID, it's unique
+}
+
+generateIDButton.addEventListener("click", (event)=>{
+	event.preventDefault();
+	generateAndDisplayID();
+})
+	
 
 // FORM VALIDATION
 const validateForm = ()=> {
@@ -41,11 +64,14 @@ const validateForm = ()=> {
 		manufacturerInput.focus();
 		return false
 	}	
-	if (idInput.value === "") {
+	// CHECK FOR UNIQUE ID
+	if (idInput.value === "" || !checkIDIsUnique(idInput.value)) {
 		document.querySelector(".id-error").style.display = "block";
 		idInput.focus();
 		return false
 	}	
+
+	// CHECK FOR ISO8601 DATE FORMAT
 	if (expirationInput.value === "" || !iso8601Regex.test(expirationInput.value)) {
 		document.querySelector(".expiration-error").style.display = "block";
 		expirationInput.focus();
@@ -109,12 +135,11 @@ saveButton.addEventListener("click", (event)=> {
 		if (prescriptionInput.checked) {
 			const newMedicine = new PrescriptionMedicine(nameInput.value, manufacturerInput.value, idInput.value, expirationInput.value, stockInput.value, true);
 			Medicine.addMedicine(newMedicine);
-			console.log(window.localStorage.allProducts);
 		} else {
 			const newMedicine = new Medicine(nameInput.value, manufacturerInput.value, idInput.value, expirationInput.value, stockInput.value);
 			Medicine.addMedicine(newMedicine);
-			console.log(window.localStorage.allProducts);
 		}
+
 		displaySaveConfirmation(nameInput.value);
 		closeEditPage();
 		renderList(getMedicineFromLocaleStorage());
@@ -122,16 +147,14 @@ saveButton.addEventListener("click", (event)=> {
 })
 
 // GET ALL MEDICINES ARRAY
-const getMedicineFromLocaleStorage = ()=> {
-	const medicineArrayJSON = window.localStorage.getItem("allProducts", allProducts);
-	const convertedMedicineArray = JSON.parse(medicineArrayJSON)
-	console.log(convertedMedicineArray);
-	return convertedMedicineArray;
-}
+function getMedicineFromLocaleStorage() {
+	const medicineArrayJSON = window.localStorage.getItem("allProducts");
+	const allProducts = JSON.parse(medicineArrayJSON) || []; // RETURNS AN EMPTY ARRAY IF JSON RETURNS NULL
+	return allProducts;
+};
 
 // DEFAULT LIST CONTENT
 
 renderList(getMedicineFromLocaleStorage());
 
 // EXPORTS
-export default allProducts;

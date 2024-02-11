@@ -1,4 +1,5 @@
-import allProducts from "./app.js"
+import { allProducts } from "./app.js";
+
 
 export class Medicine {
 	constructor(name, manufacturer, id, expiration, qty){

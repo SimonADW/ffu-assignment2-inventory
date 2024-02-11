@@ -1,10 +1,8 @@
-import { listContainer } from "./app.js";
+import { allProducts, listContainer } from "./app.js";
+
 
 export const renderList = (arrayOfProducts)=> {
 	listContainer.textContent = ""
-	if (!Array.isArray(arrayOfProducts)) {
-		arrayOfProducts = [];
-	}
 	arrayOfProducts.forEach(product => {
 		// CREATE CONTAINERS
 		const listItem = document.createElement("div");
@@ -30,8 +28,8 @@ export const renderList = (arrayOfProducts)=> {
 		listItem.className = "list__item grid";
 
 		name.className = "list__item__content column--3 name";
-		manufacturer.className = "list__item__content column--2 id";
-		id.className = "list__item__content column--2 manufacturer";
+		manufacturer.className = "list__item__content column--2 manufacturer";
+		id.className = "list__item__content column--2 id";
 		expiration.className = "list__item__content column--1 expiration";
 		stock.className = "list__item__content column--1 qty";
 
