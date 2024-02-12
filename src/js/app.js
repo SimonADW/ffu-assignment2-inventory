@@ -12,6 +12,9 @@ const saveButton = document.querySelector(".save-button");
 const cancelButton = document.querySelector(".cancel-button");
 const generateIDButton = document.querySelector(".generateID");
 
+
+
+
 // CONTAINERS
 const editPage = document.querySelector(".edit-page");
 export const listContainer = document.querySelector(".list");
@@ -146,8 +149,10 @@ saveButton.addEventListener("click", (event)=> {
 	}
 })
 
+
+
 // GET ALL MEDICINES ARRAY
-function getMedicineFromLocaleStorage() {
+export function getMedicineFromLocaleStorage() {
 	const medicineArrayJSON = window.localStorage.getItem("allProducts");
 	const allProducts = JSON.parse(medicineArrayJSON) || []; // RETURNS AN EMPTY ARRAY IF JSON RETURNS NULL
 	return allProducts;
@@ -156,5 +161,6 @@ function getMedicineFromLocaleStorage() {
 // DEFAULT LIST CONTENT
 
 renderList(getMedicineFromLocaleStorage());
+
 
 // EXPORTS

@@ -1,4 +1,5 @@
 import { allProducts, listContainer } from "./app.js";
+import { Medicine } from "./medicine.js";
 
 
 export const renderList = (arrayOfProducts)=> {
@@ -34,10 +35,22 @@ export const renderList = (arrayOfProducts)=> {
 		stock.className = "list__item__content column--1 qty";
 
 		actions.className = "list__item__content column--3 actions";
-		editButton.className = "list__item__content__delete";
-		deleteButton.className = "list__item__content__edit";
+		editButton.className = "list__item__content__edit";
+		deleteButton.className = "list__item__content__delete";
 		chevron.className = "chevron"
 		chevronIcon.classList = "fa-solid fa-chevron-down"
+
+		// Add DATASET/ID
+		listItem.dataset.id = product.id;
+
+		// // DELETE MEDICINE
+		deleteButton.addEventListener("click", (event)=> {
+				const listID = 	event.currentTarget.parentElement.parentElement.dataset.id
+				console.log(listID);
+				Medicine.deleteMedicine(listID, allProducts);
+		});
+
+
 
 		// ADD CONTENT
 		name.textContent = product.name;
