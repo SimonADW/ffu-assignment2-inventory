@@ -53,7 +53,6 @@ button:active {
 }
 
 .list__header {
-	position: relative;
 	margin-bottom: -1.8rem;
 }
 
@@ -112,7 +111,7 @@ button:active {
 	height: 15rem;
 	
 	position: absolute;
-	top: 5rem;
+	top: 50%;
 	left: 50%;
 	transform: translateX(-50%);
 
