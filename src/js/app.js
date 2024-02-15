@@ -10,6 +10,8 @@ const addItemButton = document.querySelector(".add-and-search__addItem");
 const closeOverlayButton = document.querySelector(".close-overlay-button");
 const saveButton = document.querySelector(".save-button");
 const cancelButton = document.querySelector(".cancel-button");
+export const confirmDelete = document.querySelector(".confirm-delete");
+export const cancelDelete = document.querySelector(".cancel-delete")
 
 
 
@@ -18,6 +20,7 @@ const editPage = document.querySelector(".edit-page");
 export const listContainer = document.querySelector(".list");
 const myForm = document.querySelector("form");
 const confirmSaveContainer = document.querySelector(".save-confirmation");
+export const confirmDeleteMessage = document.querySelector(".confirm-delete-message");
 
 // INPUTS
 const nameInput = document.querySelector(".name");
@@ -26,9 +29,22 @@ const expirationInput = document.querySelector(".expiration");
 const stockInput = document.querySelector(".stock");
 const prescriptionInput = document.querySelector(".prescription");
 const dosageForm = document.querySelector(".dosage-form")
+const dosagePcs = document.querySelector(".dosage-pcs")
+const dosageMillilitres = document.querySelector(".dosage-ml")
 
 const searchInput = document.querySelector(".search");
 
+
+// DISABLE DOSAGE INPUT
+dosageForm.addEventListener("change", ()=> {
+	if(dosageForm.value === "Syrup") {
+		dosageMillilitres.removeAttribute("Disabled");
+		dosagePcs.setAttribute("Disabled", "Disabled");
+	} else {
+		dosageMillilitres.setAttribute("Disabled", "Disabled");
+		dosagePcs.removeAttribute("Disabled");
+	};
+});
 
 // FORM VALIDATION
 const validateForm = ()=> {
@@ -103,10 +119,10 @@ saveButton.addEventListener("click", (event)=> {
 	event.preventDefault();
 	if (validateForm()) {
 		if (dosageForm.value === "Capsule") {
-			const newMedicine = new Capsule(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked, dosageForm.value);
+			const newMedicine = new Capsule(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked, dosageForm.value, dosagePcs.value);
 			Medicine.addMedicine(newMedicine);
 		} else if(dosageForm.value === "Syrup") {
-			const newMedicine = new Syrup(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked, dosageForm.value);
+			const newMedicine = new Syrup(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked, dosageForm.value, dosageMillilitres.value);
 			Medicine.addMedicine(newMedicine);
 		} else {
 			const newMedicine = new Medicine(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked, dosageForm.value);
