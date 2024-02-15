@@ -4,13 +4,14 @@ import { getMedicineFromLocaleStorage } from "./app.js";
 
 
 export class Medicine {
-	constructor(name, manufacturer, expiration, qty, prescription){
+	constructor(name, manufacturer, expiration, qty, prescription, dosageForm){
 		this.name = name
 		this.manufacturer = manufacturer
 		this.id = Date.now()
 		this.expiration = expiration
 		this.qty = qty
 		this.prescription = prescription
+		this.dosageForm = dosageForm
 	}
 
 	static addMedicine(medicine){
@@ -29,10 +30,17 @@ export class Medicine {
 	};
 }
 
-export class PrescriptionMedicine extends Medicine {
-	constructor(name, manufacturer, expiration, qty, prescription) {
-		super(name, manufacturer, expiration, qty)
-		this.prescription = prescription
+export class Capsule extends Medicine {
+	constructor(name, manufacturer, expiration, qty, prescription, dosageForm, dosagePcs) {
+		super(name, manufacturer, expiration, qty, prescription, dosageForm)
+		this.dosagePcs = dosagePcs
+	}
+}
+
+export class Syrup extends Medicine {
+	constructor(name, manufacturer, expiration, qty, prescription, dosageForm, dosageMl) {
+		super(name, manufacturer, expiration, qty, prescription, dosageForm)
+		this.dosageMl = dosageMl
 	}
 }
 

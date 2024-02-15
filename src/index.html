@@ -46,20 +46,33 @@
 				<input type="text" name="manufacturer" class="manufacturer column--4" tabindex="2" required>
 				<div class="manufacturer-error error-message column--5">* Please enter a name</div>
 				
+				<label for="dosage-form" class="offset--1 column--2">Dosage Form:</label>
+				<select name="" id="" name="dosage-form" class="dosage-form column--4" tabindex="3" required>
+					<option value="capsule">Capsule</option>
+					<option value="Syrup">Syrup</option>
+				</select>
+				<div class="dosage-form-error error-message column--5">* Please enter a name</div>
+
+				<label for="dosage-pcs" class="offset--1 column--2">Dosage Pcs</label>
+				<input type="number" class="dosage-pcs offset--5 column--2">
+
+				<label for="dosage-ml" class="offset--1 column--2">Dosage Millilitres</label>
+				<input type="number" class="dosage-ml offset--5 column--2">
+
 				<label for="expiration" class="offset--1 column--2">Expiration date: <span class="form-explanation">(YYYY-MM-DD)</span></label>
-				<input type="text" name="expiration" class="expiration offset--5 column--2" tabindex="5" required>
+				<input type="text" name="expiration" class="expiration offset--5 column--2" tabindex="4" required>
 				<div class="expiration-error error-message column--5">* Please enter a valid date format (YYYY-MM-DD):</div>
 				
 				<label for="stock" class="offset--1 column--2">Qty in stock:</label>
-				<input type="text" name="stock" class="stock offset--5 column--2" tabindex="6" required>
+				<input type="text" name="stock" class="stock offset--5 column--2" tabindex="5" required>
 				<div class="stock-error error-message column--5	">* Please enter a number</div>
 			
-				<label for="prescription" class="offset--1 row-start--6 column--2">Prescription Med.:</label>
-				<input type="checkbox" name="prescription" class="prescription row-start--6 offset--6 column--2" tabindex="7" required>
+				<label for="prescription" class="offset--1  column--2">Prescription Med.:</label>
+				<input type="checkbox" name="prescription" class="prescription  offset--6 column--2" tabindex="6" required>
 				<div class="prescription-error error-message column--5">* Please enter a number</div>
 	
-				<button type="submit" class="save-button offset--7 column--2" tabindex="8">Save</button>
-				<button class="cancel-button offset--9 column--2" tabindex="9">Cancel</button>
+				<button type="submit" class="save-button row-start--9 offset--7 column--2" tabindex="7">Save</button>
+				<button class="cancel-button offset--9 column--2 row-start--9" tabindex="8">Cancel</button>
 			</form>
 		</div>
 

@@ -1,4 +1,4 @@
-import { Medicine, PrescriptionMedicine } from "./medicine.js";
+import { Medicine, Capsule, Syrup } from "./medicine.js";
 import {renderList} from "./renderList.js"
 
 export const allProducts = getMedicineFromLocaleStorage();
@@ -25,6 +25,7 @@ const manufacturerInput = document.querySelector(".manufacturer");
 const expirationInput = document.querySelector(".expiration");
 const stockInput = document.querySelector(".stock");
 const prescriptionInput = document.querySelector(".prescription");
+const dosageForm = document.querySelector(".dosage-form")
 
 const searchInput = document.querySelector(".search");
 
@@ -101,11 +102,14 @@ const displaySaveConfirmation = (medicineName)=> {
 saveButton.addEventListener("click", (event)=> {
 	event.preventDefault();
 	if (validateForm()) {
-		if (prescriptionInput.checked) {
-			const newMedicine = new PrescriptionMedicine(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked);
+		if (dosageForm.value === "Capsule") {
+			const newMedicine = new Capsule(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked, dosageForm.value);
+			Medicine.addMedicine(newMedicine);
+		} else if(dosageForm.value === "Syrup") {
+			const newMedicine = new Syrup(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked, dosageForm.value);
 			Medicine.addMedicine(newMedicine);
 		} else {
-			const newMedicine = new Medicine(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked);
+			const newMedicine = new Medicine(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked, dosageForm.value);
 			Medicine.addMedicine(newMedicine);
 		}
 
