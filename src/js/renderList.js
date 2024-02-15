@@ -3,7 +3,7 @@ import { Medicine } from "./medicine.js";
 
 
 export const renderList = (arrayOfProducts)=> {
-	listContainer.textContent = ""
+	listContainer.textContent = "";
 	arrayOfProducts.forEach(product => {
 		// CREATE CONTAINERS
 		const listItem = document.createElement("div");
