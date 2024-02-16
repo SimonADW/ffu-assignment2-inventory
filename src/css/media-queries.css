@@ -17,7 +17,6 @@
 
 	
 	.hero img {
-		/* height: 15rem; */
 		width: 100%;
 	}
 	
@@ -38,29 +37,25 @@
 		gap: 10px;
 	}
 
-	/* .save-confirmation {
-		width: 70vw;
-		height: 5rem;
-	} */
 
 	/* SET "INLINE TABLE HEADERS" */
 	.list__item span:nth-child(1) {
 		font-weight: 700;		
 	}
 	.list__item span:nth-child(2)::before {
-		content: "Name";
+		content: "Name:";
 	}
 	.list__item span:nth-child(3)::before {
-		content: "Manufacturer";
+		content: "Manufacturer:";
 	}
 	.list__item span:nth-child(4)::before {
-		content: "Qty";
+		content: "Qty:";
 	}
 	.list__item span:nth-child(5)::before {
-		content: "Expiration";
+		content: "Expiration:";
 	}
 	.list__item span:nth-child(6)::before {
-		content: "Dosage";
+		content: "Dosage:";
 	}
 
 	.list__item span::before {
@@ -80,6 +75,39 @@
 
 	.list__item span:last-of-type {
 		border-bottom: none;
+	}
+
+
+	/* FORM */
+
+	.edit-form {
+		display: flex;
+		flex-flow: column nowrap;
+		padding: 0 var(--spacing-xsmall);
+		gap: 0px;
+	}
+	
+	.edit-form label {
+		margin-top: var(--spacing-small);
+	}
+
+	.edit-form input, .edit-form select {
+		width: 10rem;
+	}
+
+	.edit-form input:nth-child(2), 
+	.edit-form input:nth-child(5) {
+		width: 100%;
+	}
+	
+	.save-button {
+		margin-top: var(--spacing-small);
+		margin-bottom: var(--spacing-xsmall);
+	}
+
+	.edit-form button {
+		align-self: flex-end;
+		width: 10rem;
 	}
 
 }

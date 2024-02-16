@@ -1,5 +1,5 @@
 body {
-	min-height: 105vh;
+	min-height: 100vh;
 	min-width: 690px;
 	max-width: 1180px;
 	font-family: 'Alegreya', serif;
@@ -138,7 +138,7 @@ button:active {
 	width: 100%;	
 	position: absolute;	
 	background: var(--color-primary);
-
+	
 	display: none;
 }
 
