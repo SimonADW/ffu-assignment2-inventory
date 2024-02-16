@@ -84,13 +84,14 @@ class ListUI {
 		listContainer.textContent = "";
 		arrayOfProducts.forEach((product, index)=> {
 			// CREATE CONTAINERS
-			const listItem = document.createElement("div");
+			const listItem = document.createElement("li");
 
 			const itemNr = document.createElement("span");
 			const name = document.createElement("span");
 			const manufacturer = document.createElement("span");
 			const stock = document.createElement("span");
 			const expiration = document.createElement("span");
+			const dosage = document.createElement("span");
 			const actions = document.createElement("span");
 			const deleteButton = document.createElement("button");
 			const editButton = document.createElement("button");
@@ -99,17 +100,18 @@ class ListUI {
 			
 			// APPEND SPANS
 			listContainer.append(listItem);
-			listItem.append(itemNr, name, manufacturer, stock, expiration, actions);
+			listItem.append(itemNr, name, manufacturer, stock, expiration, dosage, actions);
 			actions.append(editButton, deleteButton, chevron);
 			chevron.append(chevronIcon);
 
 			// ADD CLASSES
 			listItem.className = "list__item grid";
 
-			name.className = "list__item__content column--3 name";
-			manufacturer.className = "list__item__content column--3 manufacturer";
+			name.className = "list__item__content column--2 name";
+			manufacturer.className = "list__item__content column--2 manufacturer";
 			itemNr.className = "list__item__content column--1 id";
-			expiration.className = "list__item__content column--1 expiration";
+			expiration.className = "list__item__content column--2 expiration";
+			dosage.className = "list__item__content column--1 expiration";
 			stock.className = "list__item__content column--1 qty";
 
 			actions.className = "list__item__content column--3 actions";
@@ -134,12 +136,15 @@ class ListUI {
 					});
 			});
 
-
-
 			// ADD CONTENT
 			itemNr.textContent = index +1;
 			name.textContent = product.name;
 			manufacturer.textContent = product.manufacturer;
+			if(product.dosageForm === "capsule") {
+				dosage.textContent = `${product.dosagePcs} pcs`
+			} else {
+				dosage.textContent = `${product.dosageMl} Ml`
+			}
 			expiration.textContent = product.expiration;
 			stock.textContent = product.qty;
 
@@ -204,12 +209,12 @@ addItemButton.addEventListener("click", ()=> {
 closeOverlayButton.addEventListener("click", Form.closeEditPage);
 cancelButton.addEventListener("click", Form.closeEditPage);
 
-	// DISABLE DOSAGE INPUT
+	// DISABLE DOSAGE INPUT @TODO: DISABLE ACTS WRONG (WORK FINE IN SAFARI??)
 dosageForm.addEventListener("change", ()=> {
-	if(dosageForm.value === "Syrup") {
+	if(dosageForm.value === "syrup") {
 		dosageMillilitres.removeAttribute("Disabled");
 		dosagePcs.setAttribute("Disabled", "Disabled");
-	} else {
+	} else if(dosageForm.value === "capsule") {
 		dosageMillilitres.setAttribute("Disabled", "Disabled");
 		dosagePcs.removeAttribute("Disabled");
 	};
@@ -233,10 +238,10 @@ stockInput.addEventListener("keydown", ()=> {
 saveButton.addEventListener("click", (event)=> {
 	event.preventDefault();
 	if (Form.validateForm()) {
-		if (dosageForm.value === "Capsule") {
+		if (dosageForm.value === "capsule") {
 			const newMedicine = new Capsule(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked, dosageForm.value, dosagePcs.value);
 			Medicine.addMedicine(newMedicine);
-		} else if(dosageForm.value === "Syrup") {
+		} else if(dosageForm.value === "syrup") {
 			const newMedicine = new Syrup(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked, dosageForm.value, dosageMillilitres.value);
 			Medicine.addMedicine(newMedicine);
 		} else {
@@ -252,5 +257,5 @@ saveButton.addEventListener("click", (event)=> {
 
 // RENDER LIST CONTENT ON PAGE LOAD
 ListUI.renderList(Medicine.getMedicineFromLocaleStorage());
-
+console.log(allProducts);
 

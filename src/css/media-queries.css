@@ -1,0 +1,85 @@
+
+@media screen and (max-width: 800px) {
+	body {
+		min-height: 105vh;
+		min-width: 95vw;
+		max-width: 100vw;
+		margin: 0px 10px;
+		}
+
+    .grid {
+        display: block;
+    }
+
+	h1 {
+		font-size: 30px;
+	}
+
+	
+	.hero img {
+		/* height: 15rem; */
+		width: 100%;
+	}
+	
+	.hero img:last-child {
+		display: none;
+	}
+
+    .list__header__item {
+       display: none;	   
+    }
+
+	.list__item {
+		display: flex;
+		flex-flow: column nowrap;
+		height: fit-content;
+		margin-bottom: var(--spacing-small);
+		padding: var(--spacing-small);
+		gap: 10px;
+	}
+
+	/* .save-confirmation {
+		width: 70vw;
+		height: 5rem;
+	} */
+
+	/* SET "INLINE TABLE HEADERS" */
+	.list__item span:nth-child(1) {
+		font-weight: 700;		
+	}
+	.list__item span:nth-child(2)::before {
+		content: "Name";
+	}
+	.list__item span:nth-child(3)::before {
+		content: "Manufacturer";
+	}
+	.list__item span:nth-child(4)::before {
+		content: "Qty";
+	}
+	.list__item span:nth-child(5)::before {
+		content: "Expiration";
+	}
+	.list__item span:nth-child(6)::before {
+		content: "Dosage";
+	}
+
+	.list__item span::before {
+		font-weight: 700;
+	}
+	
+	.list__item span {
+		display: flex;
+		justify-content: space-between;		
+		border-bottom: 2px dotted;
+		border-color: #243E3655;
+	}
+	
+	.list__item span:nth-child(6) {
+		margin-bottom: var(--spacing-xsmall);
+	}
+
+	.list__item span:last-of-type {
+		border-bottom: none;
+	}
+
+}
