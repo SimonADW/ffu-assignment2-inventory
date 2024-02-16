@@ -7,8 +7,6 @@ const cancelButton = document.querySelector(".cancel-button");
 const confirmDelete = document.querySelector(".confirm-delete");
 const cancelDelete = document.querySelector(".cancel-delete")
 
-
-
 // CONTAINERS
 const editPage = document.querySelector(".edit-page");
 const listContainer = document.querySelector(".list");
@@ -27,6 +25,10 @@ const dosagePcs = document.querySelector(".dosage-pcs")
 const dosageMillilitres = document.querySelector(".dosage-ml")
 
 const searchInput = document.querySelector(".search");
+
+// EDIT MODE
+let currentMedicineIndex;
+let editMode = false;
 
 // MEDICINE - CONSTRUCTOR, ADD, DELETE
 class Medicine {
@@ -47,9 +49,13 @@ class Medicine {
 	};
 
 	static addMedicine(medicine){
-		allProducts.push(medicine);
-		window.localStorage.setItem("allProducts", JSON.stringify(allProducts));
-		
+		if(editMode){		
+			allProducts.splice(currentMedicineIndex, 1, medicine);
+			window.localStorage.setItem("allProducts", JSON.stringify(allProducts));			
+		} else {
+			allProducts.push(medicine);
+			window.localStorage.setItem("allProducts", JSON.stringify(allProducts));		
+		}
 	};
 
 	static deleteMedicine(ID, productsArray){
@@ -59,6 +65,38 @@ class Medicine {
 			window.localStorage.setItem("allProducts", JSON.stringify(allProducts));
 			ListUI.renderList(Medicine.getMedicineFromLocaleStorage());
 		};
+	};
+
+	static openEditMedicineTab(ID, productsArray) {		
+		currentMedicineIndex = productsArray.findIndex(product => product.id.toString() === ID.toString());
+		if(currentMedicineIndex !== -1) {
+			const currentObject = allProducts[currentMedicineIndex];
+			editPage.style.display = "block";
+			listContainer.style.display = "none"
+
+			nameInput.value = currentObject.name;
+			manufacturerInput.value = currentObject.manufacturer;
+			expirationInput.value = currentObject.expiration;
+			stockInput.value = currentObject.qty;			
+			if(currentObject.prescription) {
+				prescriptionInput.checked = true;
+			}
+			if(currentObject.dosageForm === "capsule"){				
+				dosageForm.value = "capsule";
+				dosagePcs.value = Number(currentObject.dosagePcs);
+			} else if(currentObject.dosageForm === "syrup") {				
+				dosageForm.value = "syrup";
+				dosageMillilitres.removeAttribute("Disabled");
+				dosagePcs.setAttribute("Disabled", "Disabled");
+				dosageMillilitres.value = Number(currentObject.dosageMl);
+			}
+
+			nameInput.focus()
+		};				
+	};
+
+	static updateEditedMedicine(medicine, index) {
+		
 	};
 };
 
@@ -78,6 +116,7 @@ class Syrup extends Medicine {
 
 const allProducts = Medicine.getMedicineFromLocaleStorage();
 
+
 // RENDER LIST
 class ListUI {
 	 static renderList(arrayOfProducts) {
@@ -95,15 +134,12 @@ class ListUI {
 			const actions = document.createElement("span");
 			const deleteButton = document.createElement("button");
 			const editButton = document.createElement("button");
-			const chevron = document.createElement("button");
-			const chevronIcon = document.createElement("i");
-			
+				
 			// APPEND SPANS
 			listContainer.append(listItem);
 			listItem.append(itemNr, name, manufacturer, stock, expiration, dosage, actions);
-			actions.append(editButton, deleteButton, chevron);
-			chevron.append(chevronIcon);
-
+			actions.append(editButton, deleteButton);
+	
 			// ADD CLASSES
 			listItem.className = "list__item grid";
 
@@ -117,8 +153,7 @@ class ListUI {
 			actions.className = "list__item__content column--3 actions";
 			editButton.className = "list__item__content__edit";
 			deleteButton.className = "list__item__content__delete";
-			chevron.className = "chevron"
-			chevronIcon.classList = "fa-solid fa-chevron-down"
+
 
 			// Add DATASET/ID
 			listItem.dataset.id = product.id;
@@ -136,6 +171,13 @@ class ListUI {
 					});
 			});
 
+			// OPEN EDIT MEDICINE TAB
+			editButton.addEventListener("click", (event)=> {
+				editMode = true;
+				const listID = 	event.currentTarget.parentElement.parentElement.dataset.id;
+				Medicine.openEditMedicineTab(listID, allProducts);				
+			})
+
 			// ADD CONTENT
 			itemNr.textContent = index +1;
 			name.textContent = product.name;
@@ -143,7 +185,7 @@ class ListUI {
 			if(product.dosageForm === "capsule") {
 				dosage.textContent = `${product.dosagePcs} pcs`
 			} else {
-				dosage.textContent = `${product.dosageMl} Ml`
+				dosage.textContent = `${product.dosageMl} ml`
 			}
 			expiration.textContent = product.expiration;
 			stock.textContent = product.qty;
@@ -191,11 +233,17 @@ class Form {
 
 	// DISPLAY SAVE CONFIRMATION MESSAGE
 	static displaySaveConfirmation(medicineName) {
-		confirmSaveContainer.textContent = `${medicineName} added to inventory ✔︎`
-		confirmSaveContainer.style.display = "flex";		
+		if(editMode) {
+			confirmSaveContainer.textContent = `${medicineName} updated ✔︎`
+			confirmSaveContainer.style.display = "flex";		
+			editMode = false;
+		} else {
+			confirmSaveContainer.textContent = `${medicineName} added to inventory ✔︎`
+			confirmSaveContainer.style.display = "flex";		
+		}
 		setTimeout(()=>{
 			confirmSaveContainer.style.display = "none";		
-	}, 3000)
+		}, 3000)
 }
 }
 
@@ -209,12 +257,16 @@ addItemButton.addEventListener("click", ()=> {
 closeOverlayButton.addEventListener("click", Form.closeEditPage);
 cancelButton.addEventListener("click", Form.closeEditPage);
 
-	// DISABLE DOSAGE INPUT @TODO: DISABLE ACTS WRONG (WORK FINE IN SAFARI??)
+	// DISABLE DOSAGE INPUT
 dosageForm.addEventListener("change", ()=> {
 	if(dosageForm.value === "syrup") {
+		dosageMillilitres.value = 1;
+		dosagePcs.value = "";
 		dosageMillilitres.removeAttribute("Disabled");
 		dosagePcs.setAttribute("Disabled", "Disabled");
 	} else if(dosageForm.value === "capsule") {
+		dosagePcs.value = 1;
+		dosageMillilitres.value = "";
 		dosageMillilitres.setAttribute("Disabled", "Disabled");
 		dosagePcs.removeAttribute("Disabled");
 	};
@@ -237,6 +289,7 @@ stockInput.addEventListener("keydown", ()=> {
 	// SAVE NEW MEDICINE
 saveButton.addEventListener("click", (event)=> {
 	event.preventDefault();
+
 	if (Form.validateForm()) {
 		if (dosageForm.value === "capsule") {
 			const newMedicine = new Capsule(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked, dosageForm.value, dosagePcs.value);
