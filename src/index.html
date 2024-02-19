@@ -49,7 +49,7 @@
 				
 				<label for="dosage-form" class="offset--1 column--2">Dosage Form:</label>
 				<select name="" id="" name="dosage-form" class="dosage-form column--4" tabindex="3" required>
-					<option value="capsule">Capsule</option>
+					<option value="capsule" selected>Capsule</option>
 					<option value="syrup">Syrup</option>
 				</select>
 				<div class="dosage-form-error error-message column--5">* Please enter a name</div>
@@ -95,13 +95,13 @@
 			<span class="column--2 actions">Actions</span>
 		</div>
 
-		<div class="confirm-delete-message">
+		<dialog class="confirm-delete-message">
 			Are you sure you want to delete this item?
 			<div>
 				<button class="confirm-delete">Yes</button>
 				<button class="cancel-delete">Cancel</button>
 			</div>
-		</div>
+		</dialog>
 		
 	</section>
 	

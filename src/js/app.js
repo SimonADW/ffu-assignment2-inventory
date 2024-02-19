@@ -225,10 +225,26 @@ class Form {
 		return true;	
 	};
 
+	// DISABLE THE INPUT NOT RELEVANT
+	static disableDosageInputs() {
+		if(dosageForm.value === "syrup") {
+			dosageMillilitres.value = 1;
+			dosagePcs.value = "";
+			dosageMillilitres.removeAttribute("Disabled");
+			dosagePcs.setAttribute("Disabled", "Disabled");
+		} else if(dosageForm.value === "capsule") {
+			dosagePcs.value = 1;
+			dosageMillilitres.value = "";
+			dosageMillilitres.setAttribute("Disabled", "Disabled");
+			dosagePcs.removeAttribute("Disabled");
+		};
+	}
+
 	static closeEditPage() {
 		myForm.reset();
 		editPage.style.display = "none";
 		listContainer.style.display = "flex";
+		editMode = false;
 	}
 
 	// DISPLAY SAVE CONFIRMATION MESSAGE
@@ -250,6 +266,7 @@ class Form {
 // EVENT LISTENERS ---------------------------------------------------
 addItemButton.addEventListener("click", ()=> {
 	editPage.style.display = "block";
+	disableDosageInputs();
 	listContainer.style.display = "none"
 	nameInput.focus()
 });
@@ -258,19 +275,7 @@ closeOverlayButton.addEventListener("click", Form.closeEditPage);
 cancelButton.addEventListener("click", Form.closeEditPage);
 
 	// DISABLE DOSAGE INPUT
-dosageForm.addEventListener("change", ()=> {
-	if(dosageForm.value === "syrup") {
-		dosageMillilitres.value = 1;
-		dosagePcs.value = "";
-		dosageMillilitres.removeAttribute("Disabled");
-		dosagePcs.setAttribute("Disabled", "Disabled");
-	} else if(dosageForm.value === "capsule") {
-		dosagePcs.value = 1;
-		dosageMillilitres.value = "";
-		dosageMillilitres.setAttribute("Disabled", "Disabled");
-		dosagePcs.removeAttribute("Disabled");
-	};
-});
+dosageForm.addEventListener("change", Form.disableDosageInputs);
 
 	//FORM INPUTS
 nameInput.addEventListener("keydown", ()=> {
