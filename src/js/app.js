@@ -266,7 +266,6 @@ class Form {
 // EVENT LISTENERS ---------------------------------------------------
 addItemButton.addEventListener("click", ()=> {
 	editPage.style.display = "block";
-	disableDosageInputs();
 	listContainer.style.display = "none"
 	nameInput.focus()
 });
