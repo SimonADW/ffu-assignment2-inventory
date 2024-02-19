@@ -81,17 +81,20 @@ class Medicine {
 			if(currentObject.prescription) {
 				prescriptionInput.checked = true;
 			}
-			if(currentObject.dosageForm === "capsule"){				
+			if(currentObject.dosageForm === "capsule"){		
 				dosageForm.value = "capsule";
-				dosagePcs.value = Number(currentObject.dosagePcs);
+				dosagePcs.value = Number(currentObject.dosagePcs);								
+				dosageMillilitres.value = "";
+				dosageMillilitres.setAttribute("Disabled", "Disabled");
+				dosagePcs.removeAttribute("Disabled");
+						
 			} else if(currentObject.dosageForm === "syrup") {				
 				dosageForm.value = "syrup";
 				dosageMillilitres.removeAttribute("Disabled");
 				dosagePcs.setAttribute("Disabled", "Disabled");
 				dosageMillilitres.value = Number(currentObject.dosageMl);
+				dosagePcs.value = "";
 			}
-
-			nameInput.focus()
 		};				
 	};
 
@@ -194,6 +197,17 @@ class ListUI {
 			deleteButton.textContent = "Delete";
 		});
 	};
+
+	static searchAndRender() {
+		let searchResultArray = []		
+		allProducts.forEach((product)=> {
+			if (product.name.toLowerCase().includes(searchInput.value.toLowerCase())
+			 || product.manufacturer.toLowerCase().includes(searchInput.value.toLowerCase())) {
+				searchResultArray.push(product);
+			};
+		});		
+		ListUI.renderList(searchResultArray);
+	};
 };
 
 class Form {	
@@ -211,6 +225,21 @@ class Form {
 			manufacturerInput.focus();
 			return false
 		}	
+		
+		if (dosageForm.value === "capsule") {
+			if (dosagePcs.value === "") {
+				document.querySelector(".dosage-pcs-error").style.display = "block";
+				dosagePcs.focus();
+				return false
+			};
+		} else {
+			if (dosageMillilitres.value === "") {
+				document.querySelector(".dosage-ml-error").style.display = "block";
+				dosageMillilitres.focus();
+				return false
+			};
+		};
+
 		// CHECK FOR ISO8601 DATE FORMAT
 		if (expirationInput.value === "" || !iso8601Regex.test(expirationInput.value)) {
 			document.querySelector(".expiration-error").style.display = "block";
@@ -257,6 +286,7 @@ class Form {
 			confirmSaveContainer.textContent = `${medicineName} added to inventory ✔︎`
 			confirmSaveContainer.style.display = "flex";		
 		}
+		searchInput.input = "";
 		setTimeout(()=>{
 			confirmSaveContainer.style.display = "none";		
 		}, 3000)
@@ -270,18 +300,27 @@ addItemButton.addEventListener("click", ()=> {
 	nameInput.focus()
 });
 
+	// SEARCH INPUT
+searchInput.addEventListener("keyup", ListUI.searchAndRender)
+
 closeOverlayButton.addEventListener("click", Form.closeEditPage);
 cancelButton.addEventListener("click", Form.closeEditPage);
 
 	// DISABLE DOSAGE INPUT
 dosageForm.addEventListener("change", Form.disableDosageInputs);
 
-	//FORM INPUTS
+	//FORM INPUTS - REMOVE ERROR MESSAGE
 nameInput.addEventListener("keydown", ()=> {
 	document.querySelector(".name-error").style.display = "none";
 })
 manufacturerInput.addEventListener("keydown", ()=> {
 	document.querySelector(".manufacturer-error").style.display = "none";
+})
+dosagePcs.addEventListener("change", ()=> {
+	document.querySelector(".dosage-pcs-error").style.display = "none";
+})
+dosageMillilitres.addEventListener("change", ()=> {
+	document.querySelector(".dosage-ml-error").style.display = "none";
 })
 expirationInput.addEventListener("keydown", ()=> {
 	document.querySelector(".expiration-error").style.display = "none";

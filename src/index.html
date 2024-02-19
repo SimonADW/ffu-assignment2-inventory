@@ -56,9 +56,11 @@
 
 				<label for="dosage-pcs" class="offset--1 column--2">Dosage Pcs</label>
 				<input type="number" class="dosage-pcs offset--5 column--2" tabindex="4">
-
+				<div class="dosage-pcs-error error-message column--5">* Please provide dosage</div>
+				
 				<label for="dosage-ml" class="offset--1 column--2">Dosage Millilitres</label>
 				<input type="number" class="dosage-ml offset--5 column--2" tabindex="5" disabled>
+				<div class="dosage-ml-error error-message column--5">* Please provide dosage</div>
 
 				<label for="expiration" class="offset--1 column--2">Expiration date: <span class="form-explanation">(YYYY-MM-DD)</span></label>
 				<input type="text" name="expiration" class="expiration offset--5 column--2" tabindex="6" required>
@@ -95,13 +97,13 @@
 			<span class="column--2 actions">Actions</span>
 		</div>
 
-		<dialog class="confirm-delete-message">
+		<div class="confirm-delete-message">
 			Are you sure you want to delete this item?
 			<div>
 				<button class="confirm-delete">Yes</button>
 				<button class="cancel-delete">Cancel</button>
 			</div>
-		</dialog>
+		</div>
 		
 	</section>
 	
