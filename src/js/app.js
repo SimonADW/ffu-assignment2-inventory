@@ -296,7 +296,15 @@ class Form {
 // EVENT LISTENERS ---------------------------------------------------
 addItemButton.addEventListener("click", ()=> {
 	editPage.style.display = "block";
-	listContainer.style.display = "none"
+	listContainer.style.display = "none";
+
+	// SET DATEPICKER TODAY
+	const currentDate = new Date();
+	const day = currentDate.getDate().toString().padStart(2, "0");
+	const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+	const year = currentDate.getFullYear().toString();
+	expirationInput.value = `${year}-${month}-${day}`
+
 	nameInput.focus()
 });
 
@@ -322,7 +330,7 @@ dosagePcs.addEventListener("change", ()=> {
 dosageMillilitres.addEventListener("change", ()=> {
 	document.querySelector(".dosage-ml-error").style.display = "none";
 })
-expirationInput.addEventListener("keydown", ()=> {
+expirationInput.addEventListener("change", ()=> {
 	document.querySelector(".expiration-error").style.display = "none";
 })
 stockInput.addEventListener("keydown", ()=> {
