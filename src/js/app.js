@@ -373,5 +373,4 @@ saveButton.addEventListener("click", (event)=> {
 
 // RENDER LIST CONTENT ON PAGE LOAD
 ListUI.renderList(Medicine.getMedicineFromLocaleStorage());
-console.log(allProducts);
 
