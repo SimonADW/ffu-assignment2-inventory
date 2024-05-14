@@ -36,7 +36,7 @@ class Medicine {
 		this.manufacturer = manufacturer
 		this.id = Date.now()
 		this.expiration = expiration
-		this.qty = qty
+		this.qty = Number(qty)
 		this.dosageForm = dosageForm
 	};
 
@@ -47,10 +47,23 @@ class Medicine {
 	};
 
 	static addMedicine(medicine){
-		if(editMode){		
+		//CHECK IF MEDICINE EXIST WITH SAME MANUFACTURER AND EXP DATE
+		const indexOfDuplicate = allProducts.findIndex((product)=> {
+			return medicine.name === product.name
+			&& medicine.manufacturer === product.manufacturer
+			&& medicine.expiration ===product.expiration;
+		});
+		
+		if(indexOfDuplicate !== -1) {
+			medicine.qty += Number(allProducts[indexOfDuplicate].qty);
+			allProducts.splice(indexOfDuplicate, 1, medicine);
+			window.localStorage.setItem("allProducts", JSON.stringify(allProducts));
+		} else if(editMode){		
+		// UPDATE MEDICINE IF IN EDIT-MODE
 			allProducts.splice(currentMedicineIndex, 1, medicine);
 			window.localStorage.setItem("allProducts", JSON.stringify(allProducts));			
 		} else {
+		// ADD NEW MEDICINE	
 			allProducts.push(medicine);
 			window.localStorage.setItem("allProducts", JSON.stringify(allProducts));		
 		}
@@ -257,11 +270,14 @@ class Form {
 			dosagePcs.value = "";
 			dosageMillilitres.removeAttribute("Disabled");
 			dosagePcs.setAttribute("Disabled", "Disabled");
+			document.querySelector(".dosage-pcs-error").style.display = "none";
+
 		} else if(dosageForm.value === "capsule") {
 			dosagePcs.value = 1;
 			dosageMillilitres.value = "";
 			dosageMillilitres.setAttribute("Disabled", "Disabled");
 			dosagePcs.removeAttribute("Disabled");
+			document.querySelector(".dosage-ml-error").style.display = "none";
 		};
 	}
 
