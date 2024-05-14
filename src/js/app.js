@@ -19,7 +19,6 @@ const nameInput = document.querySelector(".name");
 const manufacturerInput = document.querySelector(".manufacturer");
 const expirationInput = document.querySelector(".expiration");
 const stockInput = document.querySelector(".stock");
-const prescriptionInput = document.querySelector(".prescription");
 const dosageForm = document.querySelector(".dosage-form")
 const dosagePcs = document.querySelector(".dosage-pcs")
 const dosageMillilitres = document.querySelector(".dosage-ml")
@@ -32,13 +31,12 @@ let editMode = false;
 
 // MEDICINE - CONSTRUCTOR, ADD, DELETE
 class Medicine {
-	constructor(name, manufacturer, expiration, qty, prescription, dosageForm){
+	constructor(name, manufacturer, expiration, qty, dosageForm){
 		this.name = name
 		this.manufacturer = manufacturer
 		this.id = Date.now()
 		this.expiration = expiration
 		this.qty = qty
-		this.prescription = prescription
 		this.dosageForm = dosageForm
 	};
 
@@ -78,9 +76,7 @@ class Medicine {
 			manufacturerInput.value = currentObject.manufacturer;
 			expirationInput.value = currentObject.expiration;
 			stockInput.value = currentObject.qty;			
-			if(currentObject.prescription) {
-				prescriptionInput.checked = true;
-			}
+	
 			if(currentObject.dosageForm === "capsule"){		
 				dosageForm.value = "capsule";
 				dosagePcs.value = Number(currentObject.dosagePcs);								
@@ -104,15 +100,15 @@ class Medicine {
 };
 
 class Capsule extends Medicine {
-	constructor(name, manufacturer, expiration, qty, prescription, dosageForm, dosagePcs) {
-		super(name, manufacturer, expiration, qty, prescription, dosageForm)
+	constructor(name, manufacturer, expiration, qty, dosageForm, dosagePcs) {
+		super(name, manufacturer, expiration, qty, dosageForm)
 		this.dosagePcs = dosagePcs
 	};
 };
 
 class Syrup extends Medicine {
-	constructor(name, manufacturer, expiration, qty, prescription, dosageForm, dosageMl) {
-		super(name, manufacturer, expiration, qty, prescription, dosageForm)
+	constructor(name, manufacturer, expiration, qty, dosageForm, dosageMl) {
+		super(name, manufacturer, expiration, qty, dosageForm)
 		this.dosageMl = dosageMl
 	};
 };
@@ -298,7 +294,7 @@ addItemButton.addEventListener("click", ()=> {
 	editPage.style.display = "block";
 	listContainer.style.display = "none";
 
-	// SET DATEPICKER TODAY
+	// SET DATEPICKER TODAY	
 	const currentDate = new Date();
 	const day = currentDate.getDate().toString().padStart(2, "0");
 	const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
@@ -343,13 +339,13 @@ saveButton.addEventListener("click", (event)=> {
 
 	if (Form.validateForm()) {
 		if (dosageForm.value === "capsule") {
-			const newMedicine = new Capsule(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked, dosageForm.value, dosagePcs.value);
+			const newMedicine = new Capsule(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, dosageForm.value, dosagePcs.value);
 			Medicine.addMedicine(newMedicine);
 		} else if(dosageForm.value === "syrup") {
-			const newMedicine = new Syrup(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked, dosageForm.value, dosageMillilitres.value);
+			const newMedicine = new Syrup(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, dosageForm.value, dosageMillilitres.value);
 			Medicine.addMedicine(newMedicine);
 		} else {
-			const newMedicine = new Medicine(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, prescriptionInput.checked, dosageForm.value);
+			const newMedicine = new Medicine(nameInput.value, manufacturerInput.value, expirationInput.value, stockInput.value, dosageForm.value);
 			Medicine.addMedicine(newMedicine);
 		}
 
