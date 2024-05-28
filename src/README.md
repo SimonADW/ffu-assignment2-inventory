@@ -25,7 +25,7 @@ Contributors:
 
 
 ### Related links
-Netlify: [Semesterassignment 2 - Pharmacy inventory](https://admirable-tiramisu-ee2b6b.netlify.app/)  
+Netlify: [Semesterassignment 2 - Pharmacy inventory](https://pharmacyinventory.netlify.app/)  
 GitHub: [Assignement 2 repository](https://github.com/SimonADW/ffu-assignment2-inventory)
 
 2024 [Simon Winter](https://github.com/SimonADW)  
